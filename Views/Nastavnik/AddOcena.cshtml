@@ -1,0 +1,13 @@
+@model projekatPPP.Models.Ocena
+<h2>@(Model.Id == 0 ? "Dodaj ocenu" : "Izmeni ocenu")</h2>
+<form asp-action="@(Model.Id == 0 ? "AddOcena" : "EditOcena")" method="post">
+    <label>Učenik ID:</label>
+    <input asp-for="UcenikId" /><br />
+    <label>Predmet ID:</label>
+    <input asp-for="PredmetId" /><br />
+    <label>Vrednost:</label>
+    <input asp-for="Vrednost" /><br />
+    <label>Komentar:</label>
+    <input asp-for="Komentar" /><br />
+    <button type="submit">Sačuvaj</button>
+</form>

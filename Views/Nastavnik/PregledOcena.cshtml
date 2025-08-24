@@ -1,0 +1,48 @@
+@model projekatPPP.Models.ViewModels.PregledOcenaViewModel
+
+@{
+    ViewData["Title"] = "Pregled Ocena";
+}
+
+<h2>Pregled ocena za učenika: @Model.UcenikImePrezime</h2>
+<hr />
+
+@if (Model.Ocene.Any())
+{
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Predmet</th>
+                <th>Ocena</th>
+                <th>Komentar</th>
+                <th>Datum unosa</th>
+                <th>Akcije</th> <!-- Dodata kolona -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ocena in Model.Ocene)
+            {
+                <tr>
+                    <td>@ocena.Predmet?.Naziv</td>
+                    <td>@ocena.Vrednost</td>
+                    <td>@ocena.Komentar</td>
+                    <td>@ocena.Datum.ToShortDateString()</td>
+                    <td>
+                        <!-- Dodat link za izmenu -->
+                        <a asp-action="EditOcena" asp-route-ocenaId="@ocena.Id" class="btn btn-sm btn-warning">Izmeni</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-info">
+        Ovaj učenik još uvek nema ocena iz vaših predmeta.
+    </div>
+}
+
+<div>
+    <a asp-action="Index" class="btn btn-primary">Nazad na dashboard</a>
+</div>

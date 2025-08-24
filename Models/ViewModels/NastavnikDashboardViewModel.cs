@@ -1,0 +1,20 @@
+using System.Collections.Generic;
+
+namespace projekatPPP.Models.ViewModels
+{
+    public class NastavnikDashboardViewModel
+    {
+        public string NastavnikImePrezime { get; set; } = string.Empty;
+
+        // Podaci za filtere i prikaz
+        public IEnumerable<Predmet> MojiPredmeti { get; set; } = new List<Predmet>();
+        public IEnumerable<Odeljenje> MojaOdeljenja { get; set; } = new List<Odeljenje>();
+        public IEnumerable<ApplicationUser> Ucenici { get; set; } = new List<ApplicationUser>();
+
+        // Brzi pregled nedavnih aktivnosti
+        public IEnumerable<Ocena> NedavneOcene { get; set; } = new List<Ocena>();
+
+        // Izveštaji
+        public Dictionary<string, double> ProsekPoPredmetima { get; set; } = new Dictionary<string, double>();
+    }
+}

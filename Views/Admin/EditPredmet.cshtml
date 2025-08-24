@@ -1,0 +1,7 @@
+@model projekatPPP.Models.Predmet
+<h2>@(Model.Id == 0 ? "Dodaj predmet" : "Izmeni predmet")</h2>
+<form asp-action="@(Model.Id == 0 ? "CreatePredmet" : "EditPredmet")" method="post">
+    <label>Naziv:</label>
+    <input asp-for="Naziv" /><br />
+    <button type="submit">Sačuvaj</button>
+</form>

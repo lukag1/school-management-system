@@ -1,0 +1,37 @@
+@model projekatPPP.Models.ViewModels.EditOcenaViewModel
+
+@{
+    ViewData["Title"] = "Izmeni Ocenu";
+}
+
+<h2>Izmena ocene</h2>
+<p>Učenik: <strong>@Model.UcenikImePrezime</strong></p>
+<p>Predmet: <strong>@Model.PredmetNaziv</strong></p>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="EditOcena" method="post">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="OcenaId" />
+
+            <div class="form-group mb-3">
+                <label asp-for="Vrednost" class="control-label"></label>
+                <input asp-for="Vrednost" type="number" min="1" max="5" class="form-control" />
+                <span asp-validation-for="Vrednost" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Komentar" class="control-label"></label>
+                <textarea asp-for="Komentar" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Komentar" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Sačuvaj izmene" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Nazad na dashboard</a>
+            </div>
+        </form>
+    </div>
+</div>

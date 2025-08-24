@@ -1,0 +1,19 @@
+@model IEnumerable<projekatPPP.Models.Predmet>
+<h2>Predmeti</h2>
+<table>
+    <tr>
+        <th>Naziv</th>
+        <th>Akcije</th>
+    </tr>
+    @foreach (var predmet in Model)
+    {
+        <tr>
+            <td>@predmet.Naziv</td>
+            <td>
+                <a href="@Url.Action("EditPredmet", "Admin", new { id = predmet.Id })">Izmeni</a> |
+                <a href="@Url.Action("DeletePredmet", "Admin", new { id = predmet.Id })">Obriši</a>
+            </td>
+        </tr>
+    }
+</table>
+<a href="@Url.Action("CreatePredmet", "Admin")">Dodaj predmet</a>

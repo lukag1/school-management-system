@@ -1,0 +1,41 @@
+@model projekatPPP.Models.ViewModels.RegisterViewModel
+
+@{
+    ViewData["Title"] = "Registracija";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <form asp-action="Index" method="post">
+            <h2 class="text-center">Kreiraj novi nalog</h2>
+            <h4 class="text-center text-muted">Nalog mora biti odobren od strane administratora.</h4>
+            <hr />
+            <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+            <div class="form-floating mb-3">
+                <input asp-for="Ime" class="form-control" placeholder="Ime" />
+                <label asp-for="Ime"></label>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Prezime" class="form-control" placeholder="Prezime" />
+                <label asp-for="Prezime"></label>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Email" class="form-control" placeholder="Email" />
+                <label asp-for="Email"></label>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="Password" class="form-control" placeholder="Lozinka" />
+                <label asp-for="Password"></label>
+            </div>
+            <div class="form-floating mb-3">
+                <input asp-for="ConfirmPassword" class="form-control" placeholder="Potvrdi lozinku" />
+                <label asp-for="ConfirmPassword"></label>
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg">Registruj se</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+@model projekatPPP.Models.ViewModels.DodajOcenuViewModel
+
+@{
+    ViewData["Title"] = "Dodaj Ocenu";
+}
+
+<h2>Dodavanje ocene za učenika: @Model.UcenikImePrezime</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="DodajOcenu" method="post">
+            @Html.AntiForgeryToken() <!-- Dodato radi sigurnosti -->
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" asp-for="UcenikId" />
+
+            <div class="form-group mb-3">
+                <label asp-for="PredmetId" class="control-label"></label>
+                <select asp-for="PredmetId" asp-items="Model.Predmeti" class="form-control">
+                    <option value="">-- Izaberi predmet --</option>
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Vrednost" class="control-label"></label>
+                <input asp-for="Vrednost" type="number" min="1" max="5" class="form-control" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Komentar" class="control-label"></label>
+                <textarea asp-for="Komentar" class="form-control" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Sačuvaj ocenu" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Nazad na dashboard</a>
+            </div>
+        </form>
+    </div>
+</div>

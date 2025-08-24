@@ -1,0 +1,41 @@
+@{
+    ViewData["Title"] = "Prijava";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <section>
+            <form method="post" asp-controller="Login" asp-action="Index">
+                <h2 class="text-center">Prijava</h2>
+                <hr />
+
+                @if (ViewBag.Error != null)
+                {
+                    <div class="alert alert-danger" role="alert">
+                        @ViewBag.Error
+                    </div>
+                }
+
+                <div class="form-floating mb-3">
+                    <input name="email" type="email" class="form-control" required autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                    <label for="email">Email</label>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input name="lozinka" type="password" class="form-control" required autocomplete="current-password" aria-required="true" placeholder="password" />
+                    <label for="lozinka">Lozinka</label>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg">Prijavi se</button>
+                </div>
+                
+                <div class="text-center mt-3">
+                    <p>
+                        <a asp-controller="Register" asp-action="Index">Nemaš nalog? Registruj se</a>
+                    </p>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>

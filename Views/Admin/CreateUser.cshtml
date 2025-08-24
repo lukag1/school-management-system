@@ -1,0 +1,62 @@
+@model projekatPPP.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "Dodaj Korisnika";
+}
+
+<h2>Kreiraj novog korisnika</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateUser" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <!-- Prikaz greške za postojećeg korisnika -->
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger">
+                    @ViewBag.Error
+                    <a asp-action="EditUser" asp-route-id="@ViewBag.ExistingUserId">Izmeni postojećeg korisnika.</a>
+                </div>
+            }
+
+            <div class="form-group mb-2">
+                <label asp-for="Ime" class="control-label"></label>
+                <input asp-for="Ime" class="form-control" />
+                <span asp-validation-for="Ime" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group mb-2">
+                <label asp-for="Prezime" class="control-label"></label>
+                <input asp-for="Prezime" class="form-control" />
+                <span asp-validation-for="Prezime" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-2">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-2">
+                <label for="lozinka" class="control-label">Lozinka</label>
+                <input name="lozinka" type="password" class="form-control" required />
+            </div>
+
+            <div class="form-group mb-2">
+                <label for="uloga" class="control-label">Uloga</label>
+                <select name="uloga" class="form-control">
+                    <option value="Administrator">Administrator</option>
+                    <option value="Nastavnik">Nastavnik</option>
+                    <option value="Ucenik">Učenik</option>
+                </select>
+            </div>
+            
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Sačuvaj" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Nazad na Dashboard</a>
+            </div>
+        </form>
+    </div>
+</div>

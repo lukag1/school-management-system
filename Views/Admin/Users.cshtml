@@ -1,0 +1,38 @@
+@model IEnumerable<projekatPPP.Models.ViewModels.UserViewModel>
+
+@{
+    ViewData["Title"] = "Korisnici";
+}
+
+<h2>Korisnici</h2>
+
+<p>
+    <a asp-action="CreateUser" class="btn btn-primary">Dodaj novog korisnika</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Email</th>
+            <th>Uloga</th>
+            <th>Akcije</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>@user.Ime</td>
+            <td>@user.Prezime</td>
+            <td>@user.Email</td>
+            <td>@user.Uloga</td>
+            <td>
+                <a asp-action="EditUser" asp-route-id="@user.Id">Izmeni</a> |
+                <a asp-action="DeleteUser" asp-route-id="@user.Id" onclick="return confirm('Da li ste sigurni?');">Obriši</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

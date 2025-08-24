@@ -1,0 +1,128 @@
+@model projekatPPP.Models.ViewModels.NastavnikDashboardViewModel
+
+@{
+    ViewData["Title"] = "Nastavnički Dashboard";
+}
+
+<div class="container mt-4">
+    <h1 class="display-5">Dobrodošli, @Model.NastavnikImePrezime</h1>
+    <p class="lead">Vaš pregled aktivnosti, odeljenja i predmeta.</p>
+    
+    <!-- Dodaj prikaz poruka o uspešnim akcijama -->
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+    
+    <hr />
+
+    <!-- Izveštaji i brzi pregled -->
+    <div class="row mb-4">
+        <div class="col-md-7">
+            <div class="card">
+                <div class="card-header">
+                    Izveštaj: Prosek po predmetima
+                </div>
+                <div class="card-body">
+                    @if (Model.ProsekPoPredmetima.Any())
+                    {
+                        <ul class="list-group list-group-flush">
+                            @foreach (var prosek in Model.ProsekPoPredmetima)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    @prosek.Key
+                                    <span class="badge bg-primary rounded-pill">@prosek.Value.ToString("F2")</span>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else { <p>Nema unetih ocena za generisanje izveštaja.</p> }
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-header">
+                    Poslednjih 5 unetih ocena
+                </div>
+                <ul class="list-group list-group-flush">
+                    @foreach (var ocena in Model.NedavneOcene)
+                    {
+                        <li class="list-group-item">@ocena.Ucenik.Ime @ocena.Ucenik.Prezime - <strong>@ocena.Vrednost</strong> (@ocena.Predmet.Naziv)</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Spisak učenika sa filterima -->
+    <h3>Spisak učenika</h3>
+    <p>Pregled učenika iz vaših odeljenja. Kliknite na učenika da biste uneli ili izmenili ocenu.</p>
+    
+    <!-- Filteri -->
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label for="filterOdeljenje" class="form-label">Filtriraj po odeljenju</label>
+            <select id="filterOdeljenje" class="form-select">
+                <option value="">Sva odeljenja</option>
+                @foreach (var odeljenje in Model.MojaOdeljenja)
+                {
+                    <option value="@odeljenje.Naziv">@odeljenje.Naziv</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <table class="table table-hover" id="tabelaUcenika">
+        <thead class="table-light">
+            <tr>
+                <th>Ime i Prezime</th>
+                <th>Odeljenje</th>
+                <th>Akcije</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ucenik in Model.Ucenici)
+            {
+                <tr data-odeljenje="@ucenik.Odeljenje?.Naziv">
+                    <td>@ucenik.Ime @ucenik.Prezime</td>
+                    <td>@ucenik.Odeljenje?.Naziv</td>
+                    <td>
+                        <a asp-action="DodajOcenu" asp-route-ucenikId="@ucenik.Id" class="btn btn-sm btn-success">Dodaj ocenu</a>
+                        <a asp-action="PregledOcena" asp-route-ucenikId="@ucenik.Id" class="btn btn-sm btn-info">Vidi ocene</a>
+                        <!-- DODATO DUGME -->
+                        <a asp-action="DodajIzostanak" asp-route-ucenikId="@ucenik.Id" class="btn btn-sm btn-warning">Evidentiraj izostanak</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const filterOdeljenje = document.getElementById('filterOdeljenje');
+            const tabelaUcenika = document.getElementById('tabelaUcenika').getElementsByTagName('tbody')[0];
+            const redovi = tabelaUcenika.getElementsByTagName('tr');
+
+            filterOdeljenje.addEventListener('change', function () {
+                const odabranoOdeljenje = this.value;
+
+                for (let i = 0; i < redovi.length; i++) {
+                    const red = redovi[i];
+                    const odeljenjeReda = red.getAttribute('data-odeljenje');
+
+                    if (odabranoOdeljenje === "" || odeljenjeReda === odabranoOdeljenje) {
+                        red.style.display = ""; // Pokaži red
+                    } else {
+                        red.style.display = "none"; // Sakrij red
+                    }
+                }
+            });
+        });
+    </script>
+}

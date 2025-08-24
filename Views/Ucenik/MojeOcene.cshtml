@@ -1,0 +1,19 @@
+@model IEnumerable<projekatPPP.Models.Ocena>
+<h2>Moje ocene</h2>
+<table>
+    <tr>
+        <th>Predmet</th>
+        <th>Ocena</th>
+        <th>Komentar</th>
+        <th>Datum</th>
+    </tr>
+    @foreach (var ocena in Model)
+    {
+        <tr>
+            <td>@ocena.Predmet?.Naziv</td>
+            <td>@ocena.Vrednost</td>
+            <td>@ocena.Komentar</td>
+            <td>@ocena.Datum.ToShortDateString()</td>
+        </tr>
+    }
+</table>

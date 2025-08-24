@@ -1,0 +1,62 @@
+@model projekatPPP.Models.ViewModels.DodeliZaduzenjeViewModel
+
+@{
+    ViewData["Title"] = "Dodela Zaduženja Nastavnicima";
+}
+
+<h2>@ViewData["Title"]</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <h4>Dodaj novo zaduženje</h4>
+        <form asp-action="DodeliZaduzenje" method="post">
+            <div class="form-group mb-2">
+                <label class="control-label">Nastavnik</label>
+                <select asp-for="NastavnikId" asp-items="Model.Nastavnici" class="form-control"></select>
+            </div>
+            <div class="form-group mb-2">
+                <label class="control-label">Predmet</label>
+                <select asp-for="PredmetId" asp-items="Model.Predmeti" class="form-control"></select>
+            </div>
+            <div class="form-group mb-2">
+                <label class="control-label">Odeljenje</label>
+                <select asp-for="OdeljenjeId" asp-items="Model.Odeljenja" class="form-control"></select>
+            </div>
+            <div class="form-group mt-3">
+                <input type="submit" value="Dodeli" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-8">
+        <h4>Postojeća zaduženja</h4>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nastavnik</th>
+                    <th>Predmet</th>
+                    <th>Odeljenje</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var zaduzenje in Model.PostojecaZaduzenja)
+                {
+                    <tr>
+                        <td>@zaduzenje.Nastavnik?.Ime @zaduzenje.Nastavnik?.Prezime</td>
+                        <td>@zaduzenje.Predmet?.Naziv</td>
+                        <td>@zaduzenje.Odeljenje?.Naziv</td>
+                        <td>
+                            <form asp-action="UkloniZaduzenje" method="post">
+                                <input type="hidden" name="nastavnikId" value="@zaduzenje.NastavnikId" />
+                                <input type="hidden" name="predmetId" value="@zaduzenje.PredmetId" />
+                                <input type="hidden" name="odeljenjeId" value="@zaduzenje.OdeljenjeId" />
+                                <button type="submit" class="btn btn-sm btn-danger">Ukloni</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

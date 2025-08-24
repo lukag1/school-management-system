@@ -1,0 +1,27 @@
+@model IEnumerable<projekatPPP.Models.Ocena>
+<h2>Ocene</h2>
+<table>
+    <tr>
+        <th>Učenik</th>
+        <th>Predmet</th>
+        <th>Vrednost</th>
+        <th>Komentar</th>
+        <th>Datum</th>
+        <th>Akcije</th>
+    </tr>
+    @foreach (var ocena in Model)
+    {
+        <tr>
+            <td>@ocena.Ucenik?.Ime @ocena.Ucenik?.Prezime</td>
+            <td>@ocena.Predmet?.Naziv</td>
+            <td>@ocena.Vrednost</td>
+            <td>@ocena.Komentar</td>
+            <td>@ocena.Datum.ToShortDateString()</td>
+            <td>
+                <a href="@Url.Action("EditOcena", "Nastavnik", new { id = ocena.Id })">Izmeni</a> |
+                <a href="@Url.Action("DeleteOcena", "Nastavnik", new { id = ocena.Id })">Obriši</a>
+            </td>
+        </tr>
+    }
+</table>
+<a href="@Url.Action("AddOcena", "Nastavnik")">Dodaj ocenu</a>

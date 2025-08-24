@@ -1,0 +1,46 @@
+@model projekatPPP.Models.ViewModels.IzvestajViewModel
+
+@{
+    ViewData["Title"] = "Sistemski Izveštaji";
+}
+
+<h1 class="display-5">@ViewData["Title"]</h1>
+<p class="lead">Pregled ključnih statistika sistema.</p>
+<hr />
+
+<!-- Opšte statistike -->
+<div class="row mb-4">
+    <div class="col-md-3"><div class="card text-center"><div class="card-body"><h3>@Model.UkupnoKorisnika</h3><p>Ukupno Korisnika</p></div></div></div>
+    <div class="col-md-3"><div class="card text-center"><div class="card-body"><h3>@Model.UkupnoNastavnika</h3><p>Nastavnika</p></div></div></div>
+    <div class="col-md-3"><div class="card text-center"><div class="card-body"><h3>@Model.UkupnoUcenika</h3><p>Učenika</p></div></div></div>
+    <div class="col-md-3"><div class="card text-center"><div class="card-body"><h3>@Model.ProsekSvihOcena.ToString("F2")</h3><p>Prosek Svih Ocena</p></div></div></div>
+</div>
+
+<!-- Detaljni izveštaji -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Prosek po predmetima</div>
+            <ul class="list-group list-group-flush">
+                @foreach (var item in Model.ProsekPoPredmetima)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">@item.Key <span class="badge bg-primary rounded-pill">@item.Value.ToString("F2")</span></li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Broj učenika po odeljenju</div>
+            <ul class="list-group list-group-flush">
+                @foreach (var item in Model.BrojUcenikaPoOdeljenju)
+                {
+                    <li class="list-group-item d-flex justify-content-between align-items-center">@item.Key <span class="badge bg-info rounded-pill">@item.Value</span></li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="mt-4">
+    <a asp-action="Index" class="btn btn-secondary">Nazad na Dashboard</a>
+</div>
