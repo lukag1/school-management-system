@@ -6,7 +6,7 @@ namespace projekatPPP.Models.ViewModels
 {
     public class DodajIzostanakViewModel
     {
-        public string UcenikId { get; set; }
+        public string UcenikId { get; set; } = string.Empty;
         public string? UcenikImePrezime { get; set; }
 
         [Required(ErrorMessage = "Morate izabrati predmet.")]

@@ -61,7 +61,6 @@ namespace projekatPPP.Controllers
             return View(viewModel);
         }
 
-        // --- Korisnici ---
         public async Task<IActionResult> Users()
         {
             var users = _userService.GetAllUsers();
@@ -84,11 +83,16 @@ namespace projekatPPP.Controllers
         }
 
         public IActionResult CreateUser() => View(new ApplicationUser());
-        
-        // POST: /Admin/CreateUser
+
         [HttpPost]
         public async Task<IActionResult> CreateUser(ApplicationUser user, string lozinka, string uloga)
         {
+            if (string.IsNullOrEmpty(user.Email))
+            {
+                ModelState.AddModelError("Email", "Email je obavezno polje.");
+                return View(user);
+            }
+
             var postojeciKorisnik = await _userManager.FindByEmailAsync(user.Email);
             if (postojeciKorisnik != null)
             {
@@ -107,7 +111,6 @@ namespace projekatPPP.Controllers
 
                 if (uloga == "Ucenik")
                 {
-                    // Poboljšana logika: Pronađi odeljenje sa najmanje učenika koje nije puno
                     var odeljenjeZaDodavanje = await _context.Odeljenja
                         .Where(o => _context.Users.Count(u => u.OdeljenjeId == o.Id) < 20)
                         .OrderBy(o => _context.Users.Count(u => u.OdeljenjeId == o.Id))
@@ -129,7 +132,6 @@ namespace projekatPPP.Controllers
             return View(user);
         }
 
-        // GET akcija za EditUser
         public async Task<IActionResult> EditUser(string id)
         {
             var user = await _userService.GetUser(id);
@@ -154,7 +156,6 @@ namespace projekatPPP.Controllers
             return View(viewModel);
         }
 
-        // POST akcija za EditUser
         [HttpPost]
         public async Task<IActionResult> EditUser(EditUserViewModel model)
         {
@@ -181,7 +182,10 @@ namespace projekatPPP.Controllers
                 {
                     await _userManager.RemoveFromRoleAsync(postojeciKorisnik, staraUloga);
                 }
-                await _userManager.AddToRoleAsync(postojeciKorisnik, model.Uloga);
+                if (!string.IsNullOrEmpty(model.Uloga))
+                {
+                    await _userManager.AddToRoleAsync(postojeciKorisnik, model.Uloga);
+                }
 
                 if (staraUloga == "Ucenik")
                 {
@@ -211,7 +215,7 @@ namespace projekatPPP.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost] // Promenjeno u POST radi sigurnosti
+        [HttpPost] 
         public async Task<IActionResult> DeleteUser(string id)
         {
             await _userService.DeleteUser(id);
@@ -225,7 +229,6 @@ namespace projekatPPP.Controllers
             return RedirectToAction("Index");
         }
 
-        // --- Predmeti ---
         public IActionResult Predmeti() => View(_predmetService.GetAllPredmeti());
         public IActionResult CreatePredmet() => View(new Predmet());
         [HttpPost]
@@ -242,7 +245,7 @@ namespace projekatPPP.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost] // Promenjeno u POST radi sigurnosti
+        [HttpPost] 
         public async Task<IActionResult> DeletePredmet(int id)
         {
             var predmet = await _context.Predmeti.FindAsync(id);
@@ -251,7 +254,6 @@ namespace projekatPPP.Controllers
                 return NotFound();
             }
 
-            // Proveri da li postoje povezani podaci
             bool imaOcena = await _context.Ocene.AnyAsync(o => o.PredmetId == id);
             bool imaZaduzenja = await _context.NastavnikPredmeti.AnyAsync(np => np.PredmetId == id);
             bool imaIzostanaka = await _context.Izostanci.AnyAsync(i => i.PredmetId == id);
@@ -268,7 +270,6 @@ namespace projekatPPP.Controllers
             return RedirectToAction("Index");
         }
 
-        // --- Odeljenja ---
         public IActionResult CreateOdeljenje() => View(new Odeljenje());
         [HttpPost]
         public IActionResult CreateOdeljenje(Odeljenje odeljenje)
@@ -284,7 +285,7 @@ namespace projekatPPP.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpPost] // Promenjeno u POST radi sigurnosti
+        [HttpPost] 
         public async Task<IActionResult> DeleteOdeljenje(int id)
         {
             var odeljenje = await _context.Odeljenja.FindAsync(id);
@@ -293,7 +294,6 @@ namespace projekatPPP.Controllers
                 return NotFound();
             }
 
-            // Proveri da li postoje povezani podaci
             bool imaUcenika = await _context.Users.AnyAsync(u => u.OdeljenjeId == id);
             bool imaZaduzenja = await _context.NastavnikPredmeti.AnyAsync(np => np.OdeljenjeId == id);
 
@@ -309,8 +309,7 @@ namespace projekatPPP.Controllers
             return RedirectToAction("Index");
         }
 
-        // --- Zaduženja ---
-        // GET: Prikaz stranice za dodelu zaduženja
+
         [HttpGet]
         public async Task<IActionResult> DodeliZaduzenje()
         {
@@ -330,7 +329,6 @@ namespace projekatPPP.Controllers
             return View(viewModel);
         }
 
-        // POST: Obrada forme za dodelu zaduženja
         [HttpPost]
         public async Task<IActionResult> DodeliZaduzenje(DodeliZaduzenjeViewModel model)
         {
@@ -341,7 +339,6 @@ namespace projekatPPP.Controllers
                 OdeljenjeId = model.OdeljenjeId
             };
 
-            // Provera da li zaduženje već postoji
             var postoji = await _context.NastavnikPredmeti.AnyAsync(z => z.NastavnikId == model.NastavnikId && z.PredmetId == model.PredmetId && z.OdeljenjeId == model.OdeljenjeId);
             if (!postoji)
             {
@@ -352,7 +349,6 @@ namespace projekatPPP.Controllers
             return RedirectToAction("DodeliZaduzenje");
         }
 
-        // POST: Brisanje zaduženja
         [HttpPost]
         public async Task<IActionResult> UkloniZaduzenje(string nastavnikId, int predmetId, int odeljenjeId)
         {
@@ -365,7 +361,6 @@ namespace projekatPPP.Controllers
             return RedirectToAction("DodeliZaduzenje");
         }
 
-        // --- Izveštaji i Akcije ---
         public async Task<IActionResult> Izvestaji()
         {
             var ucenici = await _context.Users
@@ -386,11 +381,11 @@ namespace projekatPPP.Controllers
                 ProsekSvihOcena = ocene.Any() ? ocene.Average(o => o.Vrednost) : 0,
                 ProsekPoPredmetima = ocene
                                           .Where(o => o.Predmet != null)
-                                          .GroupBy(o => o.Predmet.Naziv)
+                                          .GroupBy(o => o.Predmet!.Naziv)
                                           .ToDictionary(g => g.Key, g => g.Average(o => o.Vrednost)),
                 BrojUcenikaPoOdeljenju = ucenici
                                                 .Where(u => u.Odeljenje != null)
-                                                .GroupBy(u => u.Odeljenje.Naziv)
+                                                .GroupBy(u => u.Odeljenje!.Naziv)
                                                 .ToDictionary(g => g.Key, g => g.Count())
             };
             return View(viewModel);

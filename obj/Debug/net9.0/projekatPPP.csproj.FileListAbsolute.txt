@@ -233,3 +233,4 @@ C:\Users\Luka\Desktop\projekatPPP\projekatPPP\bin\Debug\net9.0\Microsoft.AspNetC
 C:\Users\Luka\Desktop\projekatPPP\projekatPPP\bin\Debug\net9.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Users\Luka\Desktop\projekatPPP\projekatPPP\bin\Debug\net9.0\Microsoft.Extensions.Identity.Core.dll
 C:\Users\Luka\Desktop\projekatPPP\projekatPPP\bin\Debug\net9.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\Luka\Desktop\projekatPPP\projekatPPP\obj\Debug\net9.0\projekatPPP.sourcelink.json

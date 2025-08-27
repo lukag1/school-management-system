@@ -89,10 +89,10 @@
             {
                 <tr data-odeljenje="@ucenik.Odeljenje?.Naziv">
                     <td>@ucenik.Ime @ucenik.Prezime</td>
-                    <td>@ucenik.Odeljenje?.Naziv</td>
+                    <td>@(ucenik.Odeljenje?.Naziv ?? "Nije dodeljeno")</td>
                     <td>
-                        <a asp-action="DodajOcenu" asp-route-ucenikId="@ucenik.Id" class="btn btn-sm btn-success">Dodaj ocenu</a>
-                        <a asp-action="PregledOcena" asp-route-ucenikId="@ucenik.Id" class="btn btn-sm btn-info">Vidi ocene</a>
+                        <a asp-action="PregledOcena" asp-route-ucenikId="@ucenik.Id" class="btn btn-info btn-sm">Vidi ocene</a>
+                        <a asp-action="DodajOcenu" asp-route-ucenikId="@ucenik.Id" class="btn btn-primary btn-sm">Dodaj ocenu</a>
                         <!-- DODATO DUGME -->
                         <a asp-action="DodajIzostanak" asp-route-ucenikId="@ucenik.Id" class="btn btn-sm btn-warning">Evidentiraj izostanak</a>
                     </td>

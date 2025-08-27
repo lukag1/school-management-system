@@ -66,11 +66,10 @@ namespace projekatPPP.Controllers
             return View(viewModel);
         }
 
-        // GET: /Nastavnik/DodajOcenu?ucenikId=...
         [HttpGet]
         public async Task<IActionResult> DodajOcenu(string ucenikId)
         {
-            var nastavnikId = User.FindFirstValue(ClaimTypes.NameIdentifier); // Dodato
+            var nastavnikId = User.FindFirstValue(ClaimTypes.NameIdentifier); 
             var ucenik = await _context.Users.FindAsync(ucenikId);
 
             if (ucenik == null || ucenik.OdeljenjeId == null) return NotFound();
@@ -90,13 +89,13 @@ namespace projekatPPP.Controllers
             return View(viewModel);
         }
 
-        // POST: /Nastavnik/DodajOcenu
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken] 
         public async Task<IActionResult> DodajOcenu(DodajOcenuViewModel model)
         {
-            var nastavnikId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            
+            var nastavnikId = User.FindFirstValue(ClaimTypes.NameIdentifier); 
+            if (string.IsNullOrEmpty(nastavnikId)) return Unauthorized();
+
             if (ModelState.IsValid)
             {
                 var ocena = new Ocena
@@ -108,17 +107,11 @@ namespace projekatPPP.Controllers
                     UcenikId = model.UcenikId,
                     NastavnikId = nastavnikId
                 };
-
                 _context.Ocene.Add(ocena);
-                await _context.SaveChangesAsync();
-                
-                // Dodaj success poruku u TempData
-                TempData["Success"] = "Ocena je uspešno dodata!";
-                
-                return RedirectToAction("Index");
+                await _context.SaveChangesAsync(); 
+
+                return RedirectToAction("Index"); 
             }
-            
-            // Ako model nije validan, ponovo pripremi podatke za formu i vrati isti view
             var ucenik = await _context.Users.FindAsync(model.UcenikId);
             if (ucenik != null)
             {
@@ -135,7 +128,6 @@ namespace projekatPPP.Controllers
             return View(model);
         }
 
-        // GET: /Nastavnik/PregledOcena?ucenikId=...
         [HttpGet]
         public async Task<IActionResult> PregledOcena(string ucenikId)
         {
@@ -158,7 +150,6 @@ namespace projekatPPP.Controllers
             return View(viewModel);
         }
 
-        // GET: /Nastavnik/EditOcena/{ocenaId}
         [HttpGet]
         public async Task<IActionResult> EditOcena(int ocenaId)
         {
@@ -168,7 +159,6 @@ namespace projekatPPP.Controllers
                 .Include(o => o.Predmet)
                 .FirstOrDefaultAsync(o => o.Id == ocenaId);
 
-            // Provera da li ocena postoji i da li pripada prijavljenom nastavniku
             if (ocena == null || ocena.NastavnikId != nastavnikId)
             {
                 return NotFound();
@@ -186,7 +176,6 @@ namespace projekatPPP.Controllers
             return View(viewModel);
         }
 
-        // POST: /Nastavnik/EditOcena
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditOcena(EditOcenaViewModel model)
@@ -203,7 +192,7 @@ namespace projekatPPP.Controllers
 
                 ocena.Vrednost = model.Vrednost;
                 ocena.Komentar = model.Komentar;
-                ocena.Datum = DateTime.Now; // Ažuriraj datum na datum izmene
+                ocena.Datum = DateTime.Now; 
 
                 _context.Update(ocena);
                 await _context.SaveChangesAsync();
@@ -213,7 +202,6 @@ namespace projekatPPP.Controllers
             return View(model);
         }
 
-        // GET: /Nastavnik/DodajIzostanak?ucenikId=...
         [HttpGet]
         public async Task<IActionResult> DodajIzostanak(string ucenikId)
         {
@@ -237,7 +225,6 @@ namespace projekatPPP.Controllers
             return View(viewModel);
         }
 
-        // POST: /Nastavnik/DodajIzostanak
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DodajIzostanak(DodajIzostanakViewModel model)
@@ -256,13 +243,11 @@ namespace projekatPPP.Controllers
                 _context.Izostanci.Add(izostanak);
                 await _context.SaveChangesAsync();
                 
-                // Dodaj success poruku u TempData
                 TempData["Success"] = "Izostanak je uspešno evidentiran!";
                 
                 return RedirectToAction("Index");
             }
 
-            // Ako model nije validan, ponovo popuni podatke za formu
             var ucenik = await _context.Users.FindAsync(model.UcenikId);
             if (ucenik != null)
             {

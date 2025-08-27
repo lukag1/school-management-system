@@ -32,14 +32,13 @@ namespace projekatPPP.Controllers
                     Email = model.Email,
                     Ime = model.Ime,
                     Prezime = model.Prezime,
-                    IsApproved = false // Učenik mora sačekati odobrenje administratora
+                    IsApproved = false
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)
                 {
-                    // Automatski dodeli ulogu "Ucenik"
                     await _userManager.AddToRoleAsync(user, "Ucenik");
                     return RedirectToAction("RegistrationSuccess");
                 }

@@ -6,17 +6,17 @@ namespace projekatPPP.Models.ViewModels
 {
     public class EditUserViewModel
     {
-        public string Id { get; set; }
+        public string Id { get; set; } = string.Empty;
 
         [Required]
-        public string Ime { get; set; }
+        public string Ime { get; set; } = string.Empty;
 
         [Required]
-        public string Prezime { get; set; }
+        public string Prezime { get; set; } = string.Empty;
 
         [Required]
         [EmailAddress]
-        public string Email { get; set; }
+        public string Email { get; set; } = string.Empty;
 
         public bool IsApproved { get; set; }
 

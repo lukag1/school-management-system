@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("projekatPPP")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3302ff9c7eb182cebcce42cae997330ecdc23360")]
 [assembly: System.Reflection.AssemblyProductAttribute("projekatPPP")]
 [assembly: System.Reflection.AssemblyTitleAttribute("projekatPPP")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
