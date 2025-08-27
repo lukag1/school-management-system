@@ -8,7 +8,6 @@
     <h1 class="display-5">Dobrodošli, @Model.NastavnikImePrezime</h1>
     <p class="lead">Vaš pregled aktivnosti, odeljenja i predmeta.</p>
     
-    <!-- Dodaj prikaz poruka o uspešnim akcijama -->
     @if (TempData["Success"] != null)
     {
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -19,7 +18,6 @@
     
     <hr />
 
-    <!-- Izveštaji i brzi pregled -->
     <div class="row mb-4">
         <div class="col-md-7">
             <div class="card">
@@ -58,11 +56,9 @@
         </div>
     </div>
 
-    <!-- Spisak učenika sa filterima -->
     <h3>Spisak učenika</h3>
     <p>Pregled učenika iz vaših odeljenja. Kliknite na učenika da biste uneli ili izmenili ocenu.</p>
     
-    <!-- Filteri -->
     <div class="row mb-3">
         <div class="col-md-4">
             <label for="filterOdeljenje" class="form-label">Filtriraj po odeljenju</label>
@@ -93,7 +89,6 @@
                     <td>
                         <a asp-action="PregledOcena" asp-route-ucenikId="@ucenik.Id" class="btn btn-info btn-sm">Vidi ocene</a>
                         <a asp-action="DodajOcenu" asp-route-ucenikId="@ucenik.Id" class="btn btn-primary btn-sm">Dodaj ocenu</a>
-                        <!-- DODATO DUGME -->
                         <a asp-action="DodajIzostanak" asp-route-ucenikId="@ucenik.Id" class="btn btn-sm btn-warning">Evidentiraj izostanak</a>
                     </td>
                 </tr>
@@ -117,9 +112,9 @@
                     const odeljenjeReda = red.getAttribute('data-odeljenje');
 
                     if (odabranoOdeljenje === "" || odeljenjeReda === odabranoOdeljenje) {
-                        red.style.display = ""; // Pokaži red
+                        red.style.display = ""; 
                     } else {
-                        red.style.display = "none"; // Sakrij red
+                        red.style.display = "none"; 
                     }
                 }
             });

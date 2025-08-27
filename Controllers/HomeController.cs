@@ -25,8 +25,6 @@ public class HomeController : Controller
 
     public IActionResult MojeOcene()
     {
-        // Ovde bi obično išao kod za dobijanje ocena iz baze podataka
-        // Za sada, vraćamo praznu listu ocena
         var model = new List<Ocena>();
         return View(model);
     }
@@ -41,8 +39,6 @@ public class HomeController : Controller
     {
         if (ModelState.IsValid)
         {
-            // Ovde bi obično išao kod za čuvanje nove ocene u bazi podataka
-
             return RedirectToAction("MojeOcene");
         }
 

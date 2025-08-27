@@ -52,13 +52,12 @@ namespace projekatPPP.Controllers
                 var roles = await _userManager.GetRolesAsync(user);
                 var role = roles.FirstOrDefault();
 
-                // Ispravna logika za preusmeravanje
                 return role switch
                 {
                     "Administrator" => RedirectToAction("Index", "Admin"),
                     "Nastavnik" => RedirectToAction("Index", "Nastavnik"),
                     "Ucenik" => RedirectToAction("Index", "Ucenik"),
-                    _ => RedirectToAction("Index", "/") // Podrazumevana stranica
+                    _ => RedirectToAction("Index", "/") 
                 };
             }
 

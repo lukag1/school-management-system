@@ -15,11 +15,9 @@ namespace projekatPPP.Controllers
     [Authorize(Roles = "Ucenik")]
     public class UcenikController : Controller
     {
-        // DODATO: Polje za AppDbContext
         private readonly AppDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        // DODATO: AppDbContext u konstruktoru
         public UcenikController(AppDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
@@ -42,7 +40,6 @@ namespace projekatPPP.Controllers
                 .Where(o => o.UcenikId == ucenikId)
                 .ToListAsync();
             
-            // Promena: Učitaj sve izostanke da bi se mogli prebrojati po tipu
             var izostanci = await _context.Izostanci
                 .Where(i => i.UcenikId == ucenikId)
                 .ToListAsync();
@@ -67,7 +64,6 @@ namespace projekatPPP.Controllers
                 ImePrezime = $"{ucenik.Ime} {ucenik.Prezime}",
                 OdeljenjeNaziv = ucenik.Odeljenje?.Naziv ?? "Nije dodeljeno",
                 SveOcene = ocene,
-                // Promena: Popuni nove propertije
                 UkupnoIzostanaka = izostanci.Count,
                 UkupnoOpravdanih = izostanci.Count(i => i.Opravdan),
                 UkupnoNeopravdanih = izostanci.Count(i => !i.Opravdan),

@@ -29,7 +29,6 @@ namespace projekatPPP.Services
             if (string.IsNullOrEmpty(nastavnikId))
                 throw new UnauthorizedAccessException("Nevažeći nastavnik.");
 
-            // Ako nije postavljen, dodeli nastavnikId iz prilikom unosa
             if (string.IsNullOrEmpty(ocena.NastavnikId))
                 ocena.NastavnikId = nastavnikId;
 
@@ -52,7 +51,6 @@ namespace projekatPPP.Services
             var nastavnikId = user.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var isAdmin = user.IsInRole("Administrator");
 
-            // nastavnik može ažurirati samo svoje ocene, admin može sve
             if (!isAdmin)
             {
                 if (string.IsNullOrEmpty(nastavnikId) || nastavnikId != existing.NastavnikId)

@@ -1,7 +1,6 @@
 @model projekatPPP.Models.Predmet
 
 @{
-    // Dinamički postavlja naslov stranice u zavisnosti da li se dodaje ili menja predmet
     ViewData["Title"] = Model.Id == 0 ? "Dodaj Novi Predmet" : "Izmeni Predmet";
 }
 
@@ -13,7 +12,6 @@
         <form asp-action="@(Model.Id == 0 ? "CreatePredmet" : "EditPredmet")" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             
-            <!-- Skriveno polje za ID, neophodno za operaciju izmene -->
             @if (Model.Id != 0)
             {
                 <input type="hidden" asp-for="Id" />

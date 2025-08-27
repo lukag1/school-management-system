@@ -16,7 +16,7 @@
                 <th>Ocena</th>
                 <th>Komentar</th>
                 <th>Datum unosa</th>
-                <th>Akcije</th> <!-- Dodata kolona -->
+                <th>Akcije</th>
             </tr>
         </thead>
         <tbody>
@@ -28,7 +28,6 @@
                     <td>@ocena.Komentar</td>
                     <td>@ocena.Datum.ToShortDateString()</td>
                     <td>
-                        <!-- Dodat link za izmenu -->
                         <a asp-action="EditOcena" asp-route-ocenaId="@ocena.Id" class="btn btn-sm btn-warning">Izmeni</a>
                     </td>
                 </tr>

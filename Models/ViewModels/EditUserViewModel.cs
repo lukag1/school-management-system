@@ -23,7 +23,6 @@ namespace projekatPPP.Models.ViewModels
         [Display(Name = "Odeljenje")]
         public int? OdeljenjeId { get; set; }
 
-        // DODATO: Polje za ulogu
         [Required(ErrorMessage = "Morate izabrati ulogu.")]
         [Display(Name = "Uloga")]
         public string? Uloga { get; set; }

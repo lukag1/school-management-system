@@ -8,7 +8,6 @@ namespace projekatPPP.Models.ViewModels
     {
         public string UcenikId { get; set; }
         
-        // Promena je ovde: string? označava da polje može biti null
         public string? UcenikImePrezime { get; set; }
 
         [Required(ErrorMessage = "Morate izabrati predmet.")]

@@ -10,7 +10,6 @@ namespace projekatPPP.Models
         public DateTime Datum { get; set; }
         public bool Opravdan { get; set; }
 
-        // DODATO: Polje za komentar
         public string? Komentar { get; set; }
 
         public int PredmetId { get; set; }

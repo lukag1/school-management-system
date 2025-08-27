@@ -10,7 +10,7 @@
 <div class="row">
     <div class="col-md-6">
         <form asp-action="DodajOcenu" method="post">
-            @Html.AntiForgeryToken() <!-- Dodato radi sigurnosti -->
+            @Html.AntiForgeryToken() 
             <div asp-validation-summary="All" class="text-danger"></div>
             <input type="hidden" asp-for="UcenikId" />
 

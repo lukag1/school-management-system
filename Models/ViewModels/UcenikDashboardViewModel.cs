@@ -5,17 +5,14 @@ namespace projekatPPP.Models.ViewModels
 {
     public class UcenikDashboardViewModel
     {
-        // Lični podaci
         [Display(Name = "Učenik")]
         public string ImePrezime { get; set; } = string.Empty;
 
         [Display(Name = "Odeljenje")]
         public string OdeljenjeNaziv { get; set; } = string.Empty;
 
-        // Ocene
         public IEnumerable<Ocena> SveOcene { get; set; } = new List<Ocena>();
 
-        // Statistika
         [Display(Name = "Ukupan prosek")]
         public double UkupanProsek { get; set; }
 
@@ -25,11 +22,9 @@ namespace projekatPPP.Models.ViewModels
         [Display(Name = "Ukupno izostanaka")]
         public int UkupnoIzostanaka { get; set; }
 
-        // DODATO: Broj opravdanih izostanaka
         [Display(Name = "Opravdani izostanci")]
         public int UkupnoOpravdanih { get; set; }
 
-        // DODATO: Broj neopravdanih izostanaka
         [Display(Name = "Neopravdani izostanci")]
         public int UkupnoNeopravdanih { get; set; }
 

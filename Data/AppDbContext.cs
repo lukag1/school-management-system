@@ -12,15 +12,13 @@ namespace projekatPPP.Data
         public DbSet<Odeljenje> Odeljenja { get; set; }
         public DbSet<Ocena> Ocene { get; set; }
         public DbSet<NastavnikPredmet> NastavnikPredmeti { get; set; }
-        public DbSet<Izostanak> Izostanci { get; set; } // Dodaj ovu liniju
+        public DbSet<Izostanak> Izostanci { get; set; } 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Definiši kompozitni ključ za vezu nastavnik-predmet
             modelBuilder.Entity<NastavnikPredmet>()
                 .HasKey(np => new { np.NastavnikId, np.PredmetId });
 
-            // Primer konfiguracije za Ocena -> ApplicationUser (string Id)
             modelBuilder.Entity<Ocena>()
                 .HasOne(o => o.Ucenik)
                 .WithMany(u => u.Ocene)

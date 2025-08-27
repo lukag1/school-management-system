@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using projekatPPP.Models;
-using projekatPPP.Models.ViewModels; // Dodaj ovaj using
+using projekatPPP.Models.ViewModels; 
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -51,7 +51,7 @@ namespace projekatPPP.Services
             existingUser.Email = model.Email;
             existingUser.UserName = model.Email;
             existingUser.IsApproved = model.IsApproved;
-            existingUser.OdeljenjeId = model.OdeljenjeId; // Sačuvaj promenu odeljenja
+            existingUser.OdeljenjeId = model.OdeljenjeId; 
             
             return await _userManager.UpdateAsync(existingUser);
         }

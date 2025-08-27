@@ -8,7 +8,6 @@
     <h1 class="display-5">@ViewData["Title"]</h1>
     <hr />
 
-    <!-- Kartice sa osnovnim informacijama -->
     <div class="row mb-4">
         <div class="col-md-4">
             <div class="card h-100">
@@ -31,7 +30,6 @@
             <div class="card h-100">
                 <div class="card-body">
                     <h5 class="card-title">Prisustvo i Angažovanje</h5>
-                    <!-- Promena: Prikaz opravdanih i neopravdanih -->
                     <p class="card-text mb-1">
                         <strong>@Html.DisplayNameFor(m => m.UkupnoOpravdanih):</strong> 
                         <span class="badge bg-success">@Model.UkupnoOpravdanih</span>
@@ -45,7 +43,6 @@
         </div>
     </div>
 
-    <!-- DODATA KARTICA SA PREDMETIMA -->
     <div class="card mb-4">
         <div class="card-header">
             <h5 class="mb-0">@Html.DisplayNameFor(m => m.MojiPredmeti)</h5>
@@ -67,7 +64,6 @@
         </div>
     </div>
 
-    <!-- Tabele sa ocenama -->
     <div class="row">
         <div class="col-md-8">
             <h4>Istorija Svih Ocena</h4>
